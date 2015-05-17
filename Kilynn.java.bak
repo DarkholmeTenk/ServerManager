@@ -1,0 +1,39 @@
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Kilynn
+{
+	private static BufferedReader in;
+	public static ShutdownThread st = new ShutdownThread();
+	static
+	{
+		Runtime.getRuntime().addShutdownHook(new Thread(st));
+	}
+
+	public static void main(String[] args) throws Exception
+	{
+		String f = "/home/games/minecraftKilynn";
+		in = new BufferedReader(new InputStreamReader(System.in));
+		ScreenManager m = new ScreenManager(new File(f),"-XX:PermSize=64M","-XX:MaxPermSize=128M","-Xmx1G","-Xms512M");
+		st.addManager(m);
+		System.out.println("Server created");
+		while(true)
+		{
+			String l = m.getLine();
+			while(l != null)
+			{	
+				System.out.println(l);
+				l = m.getLine();
+			}
+			
+			if(in.ready())
+			{
+				l = in.readLine();
+				if(l != null)
+					m.sendLine(l);
+			}
+			Thread.sleep(25);
+		}
+	}
+}
