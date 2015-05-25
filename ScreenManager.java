@@ -1,14 +1,13 @@
-import java.io.PrintStream;
 import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.File;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ArrayList;
 
 public class ScreenManager
 {
@@ -34,7 +33,7 @@ public class ScreenManager
 	{
 		String crashString = "This crash report has been saved to";
 		MinecraftMessage m = new MinecraftMessage(line);
-		if(m.getSource().equals("[Minecraft-Server]") && m.getMessage().indexOf("This crash report has been saved to") == 0)
+		if(m.getSource().equals("[Minecraft-Server]") && (m.getMessage().indexOf("This crash report has been saved to") == 0))
 		{
 			try
 			{
@@ -44,7 +43,7 @@ public class ScreenManager
 			{}
 		}
 	}
-	
+
 	public void addMessageListener(IMessageListener listener)
 	{
 		listeners.add(listener);
@@ -73,7 +72,7 @@ public class ScreenManager
 	public void sendLine(String line)
 	{
 		addLine(line);
-		writer.println(line);
+		writer.print(line+"\n\n");
 		writer.flush();
 	}
 
@@ -93,7 +92,7 @@ public class ScreenManager
 		shutdown();
 		start();
 	}
-	
+
 	private String[] getArguments()
 	{
 		int s = opts.length;
@@ -109,7 +108,7 @@ public class ScreenManager
 		arg[s + 4] = "nogui";
 		return arg;
 	}
-	
+
 	public void start() throws Exception
 	{
 		while(!isDown())
@@ -120,9 +119,9 @@ public class ScreenManager
 		b.directory(myDir);
 		b.redirectErrorStream(true);
 		server = b.start();
-		
+
 		stream = server.getInputStream();
-		reader = new BufferedReader(new InputStreamReader(server.getInputStream()));
+		reader = new BufferedReader(new InputStreamReader(stream));
 		writer = new PrintStream(server.getOutputStream());
 	}
 
@@ -140,7 +139,7 @@ public class ScreenManager
 			return false;
 		}
 	}
-	
+
 	public void shutdown() throws Exception
 	{
 		sendLine("stop");

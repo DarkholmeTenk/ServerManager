@@ -1,8 +1,5 @@
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MinecraftMessage
 {
@@ -54,7 +51,7 @@ public class MinecraftMessage
 
 	public MinecraftMessage(String in)
 	{
-		System.out.println("S:"+in);
+		//System.out.println("S:"+in);
 		if(in.contains("]"))
 		{
 			String[] data = in.split("\\]",4);
@@ -91,20 +88,20 @@ public class MinecraftMessage
 	{
 		return message;
 	}
-	
+
 	public String getSource()
 	{
 		return source;
 	}
-	
+
 	public String getSeverity()
 	{
 		return severity;
 	}
-	
+
 	public long getTime()
 	{
 		return time;
 	}
-	
+
 }
