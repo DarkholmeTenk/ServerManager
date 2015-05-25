@@ -72,8 +72,8 @@ public class MinecraftMessage
 			}
 			catch(Exception e)
 			{
-				System.err.println("Error handling message " + in);
-				System.err.println(e);
+				//System.err.println("Error handling message " + in);
+				//System.err.println(e);
 				//e.printStackTrace();
 				message = in;
 			}
