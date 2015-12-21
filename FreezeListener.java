@@ -45,17 +45,17 @@ public class FreezeListener implements IMessageListener, Runnable
 		MinecraftMessage m = new MinecraftMessage(message);
 		if(m.getSource().equals("Server thread") && m.getSeverity().equals("INFO"))
 		{
-			String mess = m.getMessage();
-			System.out.println("mess : #" + mess + "#");
-			if(mess.startsWith("There are") && mess.endsWith("players online:"))
+			String mess = m.getMessage().trim();
+			//System.out.println("mess : #" + mess + "#");
+			if(mess.startsWith(": There are") && mess.endsWith("players online:"))
 			{
 				System.err.println("Response from list detected!");
 				isWaiting = false;
 			}
 		}
-		else
+		else if(!m.getMessage().equals("list"))
 		{
-			System.out.println("s: #"+m.getSource()+"# #" + m.getSeverity()+"#");
+			System.out.println("s: #"+m.getSource()+"# #" + m.getSeverity()+"#"+m.getMessage()+"#");
 		}
 	}
 }

@@ -72,7 +72,7 @@ public class ScreenManager
 	public void sendLine(String line)
 	{
 		addLine(line);
-		writer.print(line+"\n\n");
+		writer.print(line+"\n");
 		writer.flush();
 	}
 
